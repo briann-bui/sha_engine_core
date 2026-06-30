@@ -1,9 +1,9 @@
 # SHA-256 Engine IP Core
-
-A synthesizable SHA-256 core written in SystemVerilog, meant to be used as a clean RTL IP block in larger hardware designs, I write code with friends.
+A synthesizable SHA-256 core written in SystemVerilog, meant to be used as a clean RTL IP block in larger hardware designs. Built together with a friend.
 
 This version only covers the core itself — no bus wrapper, padding engine, register map, or testbench yet.
 
+Collaborator: teddyuu@gmail.com
 ## Features
 
 * FIPS 180-4 compliant
