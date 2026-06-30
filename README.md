@@ -3,7 +3,7 @@ A synthesizable SHA-256 core written in SystemVerilog, meant to be used as a cle
 
 This version only covers the core itself — no bus wrapper, padding engine, register map, or testbench yet.
 
-Collaborator: teddyuu@gmail.com
+Collaborator: tedduy@gmail.com
 ## Features
 
 * FIPS 180-4 compliant
