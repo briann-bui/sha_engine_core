@@ -1,0 +1,74 @@
+:root {
+  --bg: #ffffff;
+  --surface: #f8fafc;
+  --text: #111827;
+  --muted: #64748b;
+  --line: #d8dee8;
+  --accent: #2563eb;
+  --ok: #16a34a;
+  --warn: #f59e0b;
+  --code: #0d1117;
+  --mono: "IBM Plex Mono", Consolas, monospace;
+  --sans: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  color: var(--text);
+  background: var(--bg);
+  font: 15px/1.65 var(--sans);
+}
+
+header {
+  padding: 56px clamp(22px, 8vw, 84px);
+  color: #fff;
+  background: linear-gradient(120deg, #0f1117, #1e293b);
+}
+
+main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 34px 22px 64px;
+}
+
+h1, h2, h3 { line-height: 1.2; }
+h1 { margin: 0 0 10px; font-size: clamp(32px, 5vw, 54px); }
+h2 { margin-top: 34px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+
+.badge {
+  display: inline-block;
+  margin: 4px 8px 4px 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: #0f172a;
+  background: #dbeafe;
+  font-weight: 700;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+pre {
+  overflow: auto;
+  padding: 16px;
+  border-radius: 12px;
+  color: #e5e7eb;
+  background: var(--code);
+}
+
+code { font-family: var(--mono); }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 9px 11px; border: 1px solid var(--line); text-align: left; }
+th { background: var(--surface); }
+img { max-width: 100%; }

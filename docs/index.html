@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SHA-256 Engine IP Core | Vendor Documentation</title>
+  <meta name="description" content="Vendor-style documentation for the SHA-256 SystemVerilog RTL IP core with UVM verification skeleton.">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header>
+    <h1>SHA-256 Engine IP Core</h1>
+    <p>Pure-digital SystemVerilog hash engine with synthesizable RTL, direct port-level interface, and AES-aligned project structure.</p>
+    <span class="badge">SystemVerilog</span>
+    <span class="badge">SHA-256</span>
+    <span class="badge">UVM</span>
+    <span class="badge">Synopsys VCS</span>
+  </header>
+  <main>
+    <h2>Overview</h2>
+    <div class="grid">
+      <section class="card"><strong>Algorithm</strong><br>SHA-256, with SHA-224 initial values reserved as a placeholder.</section>
+      <section class="card"><strong>Input</strong><br>512-bit pre-padded message block in big-endian word order.</section>
+      <section class="card"><strong>Output</strong><br>256-bit digest as <code>{H0,H1,H2,H3,H4,H5,H6,H7}</code>.</section>
+      <section class="card"><strong>Verification</strong><br>UVM direct-port smoke environment aligned to the AES repository layout.</section>
+    </div>
+
+    <h2>Architecture</h2>
+    <img src="assets/architecture.svg" alt="SHA-256 architecture diagram">
+
+    <h2>Interface</h2>
+    <img src="assets/register-map.svg" alt="SHA-256 direct port map">
+    <pre><code>sha2_256_core
+├── control: start, init, next, final, mode
+├── input:   block_valid, block[511:0], msg_bit_len[63:0]
+└── output:  block_ready, busy, done, error, digest_valid, digest[255:0]</code></pre>
+
+    <h2>Verification Flow</h2>
+    <img src="assets/verification-flow.svg" alt="SHA-256 UVM verification flow">
+
+    <h2>Synopsys VCS Build</h2>
+    <pre><code>make lint
+make compile
+make run
+make run UVM_TEST=sha2_256_single_block_test</code></pre>
+
+    <h2>Repository Layout</h2>
+    <pre><code>.
+|-- inc/        SHA-256 macros and undefines
+|-- rtl/        Synthesizable SHA-256 RTL
+|-- uvm/        UVM verification environment
+|-- docs/       Documentation source
+|-- filelist.f  RTL/UVM compile filelist
+`-- Makefile    Lint, compile, run, coverage, and clean targets</code></pre>
+  </main>
+</body>
+</html>

@@ -1,73 +1,121 @@
-# SHA-256 Engine IP Core
-A synthesizable SHA-256 core written in SystemVerilog, meant to be used as a clean RTL IP block in larger hardware designs. Built together with a friend.
+# SHA-256 Core
 
-This version only covers the core itself — no bus wrapper, padding engine, register map, or testbench yet.
+SystemVerilog SHA-256 compression/hash core.
 
-Collaborator: tedduy@gmail.com
-## Features
+This core takes a pre-padded 512-bit block and returns a 256-bit digest. This version focuses on the RTL core and a small UVM smoke test setup. It does not include a bus wrapper or padding engine.
 
-* FIPS 180-4 compliant
-* Takes a pre-padded 512-bit block, outputs a 256-bit digest
-* Supports both single-block and multi-block hashing
-* Message schedule uses a 16-word sliding window to keep area down
-* Clean synthesizable RTL — no latches, no `initial` blocks, no delays, no classes
+## Status
 
-## Architecture
+- SHA-256: implemented
+- Multi-block hashing: supported through `init` / `next`
+- Input: 512-bit pre-padded block, big-endian word order
+- Output: 256-bit digest `{H0, H1, H2, H3, H4, H5, H6, H7}`
+- SHA-224: initial hash values only, output truncation is not implemented yet
+- Interface: direct port-level access, no APB/AHB/AXI/CSR
 
-* `sha256_core` – top-level module
-* `sha_ctrl` – FSM controller
-* `sha_datapath` – hash state and working registers
-* `sha_msg_schedule` – generates W[t]
-* `sha_round` – combinational round logic
-* `sha_constants` – round constant lookup table
-* `sha_func` – helper functions (ROTR, Ch, Maj, Σ0, Σ1, σ0, σ1)
-
-## File Structure
+## Structure
 
 ```text
-sha_engine_core/
-├── README.md
-└── rtl/
-    ├── sha_pkg.sv
-    ├── sha_func.sv
-    ├── sha_constants.sv
-    ├── sha_round.sv
-    ├── sha_msg_schedule.sv
-    ├── sha_compress.sv
-    ├── sha_ctrl.sv
-    ├── sha_datapath.sv
-    └── sha256_core.sv
+rtl/
+  sha2_256_core.sv       top level
+  sha2_256_ctrl.sv          control FSM
+  sha2_256_datapath.sv      hash state and working variables
+  sha2_256_msg_schedule.sv  16-word sliding window W[t]
+  sha2_256_round.sv         one-round logic
+  sha2_256_constants.sv     K[t] constants
+  sha2_256_pkg.sv           parameters, enums, typedefs
+  sha2_256_func.sv          ROTR/SHR/Ch/Maj/Sigma functions
+
+uvm/
+  Direct-port UVM smoke environment
 ```
 
-## Top-Level Interface
+Local HTML documentation is available at `docs/index.html`.
 
-Top module is `sha256_core`. Main signals:
+## Main Interface
 
-* `i_sha_start` – starts a hash operation
-* `i_sha_init` – selects the first block, loads initial hash values
-* `i_sha_next` – processes the next block, keeping current state
-* `i_sha_final` – marks the last block
-* `i_sha_block_valid` – input block is valid
-* `o_sha_block_ready` – core ready for a new block
-* `o_sha_busy` – core is running
-* `o_sha_done` – one-cycle pulse when done
-* `o_sha_digest_valid` – digest output is valid
-* `o_sha_digest` – 256-bit hash result
+```systemverilog
+input  logic         i_sha2_256_clk;
+input  logic         i_sha2_256_rst_n;
 
-## Usage
+input  logic         i_sha2_256_start;
+input  logic         i_sha2_256_init;
+input  logic         i_sha2_256_next;
+input  logic         i_sha2_256_final;
+input  logic [1:0]   i_sha2_256_mode;        // 00: SHA-256, 01: SHA-224 placeholder
 
-**Single block:** feed in a padded 512-bit block, assert `i_sha_start`, `i_sha_init`, `i_sha_final`, and `i_sha_block_valid` together, then wait for `o_sha_done`. Digest is valid once `o_sha_digest_valid` goes high.
+input  logic         i_sha2_256_block_valid;
+input  logic [511:0] i_sha2_256_block;
+input  logic [63:0]  i_sha2_256_msg_bit_len; // reserved
 
-**Multiple blocks:** assert `i_sha_init` on the first block, `i_sha_next` on the following ones, and `i_sha_final` on the last. The core keeps internal hash state between blocks.
+output logic         o_sha2_256_block_ready;
+output logic         o_sha2_256_busy;
+output logic         o_sha2_256_done;
+output logic         o_sha2_256_error;
+output logic         o_sha2_256_digest_valid;
+output logic [255:0] o_sha2_256_digest;
+```
 
-## Data Format
-Digest output is also big-endian: `{H0, H1, ..., H7}`.
+## Basic Use
 
-## Current Limitations
+Single block:
 
-Not yet included: padding engine, bus wrapper (APB/AHB/AXI), CSR register map, DMA/streaming interface, testbench/test vectors, full SHA-224 support (init values are placeholders only, no output truncation yet).
+```text
+start=1, init=1, final=1, block_valid=1
+wait done=1
+read digest when digest_valid=1
+```
 
+Multi-block:
+
+```text
+block 0: start=1, init=1, final=0
+block n: start=1, next=1, final=1
+```
+
+Valid modes:
+
+```text
+2'b00  SHA-256
+2'b01  SHA-224 placeholder
+2'b10  error
+2'b11  error
+```
+
+Latency is about 68-69 cycles per block, depending on the `init` or `next` path.
+
+## Build / Run
+
+Synopsys VCS must be in `PATH`, or passed through the `VCS` variable.
+
+```sh
+make lint
+make compile
+make run
+make run UVM_TEST=sha2_256_single_block_test
+```
+
+If VCS is not in `PATH`:
+
+```sh
+make run VCS=/path/to/vcs
+```
+
+Available tests:
+
+- `sha2_256_single_block_test`
+- `sha2_256_multi_block_test`
+- `sha2_256_error_test`
+- `sha2_256_all_test`
+
+## Not Done Yet
+
+- Padding engine
+- Bus wrapper and CSR register map
+- DMA/streaming interface
+- SHA-224 output truncation
+- Full regression with more golden vectors
 
 ## Author
 
-LinkedIn: [Bui Minh Nhut](https://www.linkedin.com/in/buiminhnhut114/)
+LinkedIn: https://www.linkedin.com/in/buiminhnhut114/

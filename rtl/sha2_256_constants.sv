@@ -1,22 +1,15 @@
-//-----------------------------------------------------------------------------
-// Module   : sha_constants
-// Project  : SHA-256 Engine IP Core
-// Description:
-//   Provides the 64 round constants K[t] for SHA-256 as defined in
-//   FIPS 180-4 Section 4.2.2. Uses a synthesis-friendly case statement.
-//   No initial blocks, no dynamic arrays, no ROM inference.
-//-----------------------------------------------------------------------------
 
-module sha_constants (
-  input  logic [5:0]  i_round_index,  // Round index t (0..63)
-  output logic [31:0] o_kt            // Round constant K[t]
+
+module sha2_256_constants (
+  input  logic [5:0]  i_round_index,  
+  output logic [31:0] o_kt            
 );
 
-  // ---------------------------------------------------------------------------
-  // K[t] Lookup - 64 SHA-256 Round Constants
-  // These are the first 32 bits of the fractional parts of the cube roots
-  // of the first 64 prime numbers.
-  // ---------------------------------------------------------------------------
+  
+  
+  
+  
+  
   always_comb begin
     case (i_round_index)
       6'd0  : o_kt = 32'h428a2f98;
@@ -83,8 +76,8 @@ module sha_constants (
       6'd61 : o_kt = 32'ha4506ceb;
       6'd62 : o_kt = 32'hbef9a3f7;
       6'd63 : o_kt = 32'hc67178f2;
-      default: o_kt = 32'h00000000;  // Should not be reached
+      default: o_kt = 32'h00000000;  
     endcase
   end
 
-endmodule : sha_constants
+endmodule : sha2_256_constants

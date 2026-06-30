@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="240" viewBox="0 0 920 240" role="img" aria-label="SHA-256 verification flow">
+  <rect width="920" height="240" rx="18" fill="#f8fafc"/>
+  <g font-family="monospace" font-size="14" text-anchor="middle">
+    <rect x="40" y="82" width="150" height="76" rx="12" fill="#dbeafe" stroke="#2563eb"/>
+    <text x="115" y="126">sequence</text>
+    <rect x="250" y="82" width="150" height="76" rx="12" fill="#e0e7ff" stroke="#4f46e5"/>
+    <text x="325" y="126">driver</text>
+    <rect x="460" y="82" width="150" height="76" rx="12" fill="#ecfdf5" stroke="#16a34a"/>
+    <text x="535" y="126">sha2_256_core</text>
+    <rect x="670" y="82" width="210" height="76" rx="12" fill="#fef3c7" stroke="#f59e0b"/>
+    <text x="775" y="116">monitor</text>
+    <text x="775" y="140">scoreboard</text>
+  </g>
+  <path d="M190 120 H250" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M400 120 H460" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M610 120 H670" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#334155"/>
+    </marker>
+  </defs>
+</svg>

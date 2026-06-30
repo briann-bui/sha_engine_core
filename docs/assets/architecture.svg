@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="360" viewBox="0 0 920 360" role="img" aria-label="SHA-256 architecture">
+  <rect width="920" height="360" rx="18" fill="#f8fafc"/>
+  <rect x="40" y="74" width="190" height="92" rx="12" fill="#dbeafe" stroke="#2563eb"/>
+  <text x="135" y="116" text-anchor="middle" font-family="monospace" font-size="18" font-weight="700">sha2_256_ctrl</text>
+  <text x="135" y="142" text-anchor="middle" font-family="monospace" font-size="12">FSM + round index</text>
+  <rect x="330" y="48" width="550" height="250" rx="14" fill="#ecfdf5" stroke="#16a34a"/>
+  <text x="605" y="82" text-anchor="middle" font-family="monospace" font-size="20" font-weight="700">sha2_256_datapath</text>
+  <rect x="370" y="116" width="150" height="72" rx="10" fill="#fff" stroke="#94a3b8"/>
+  <text x="445" y="157" text-anchor="middle" font-family="monospace" font-size="14">msg_schedule</text>
+  <rect x="555" y="116" width="120" height="72" rx="10" fill="#fff" stroke="#94a3b8"/>
+  <text x="615" y="157" text-anchor="middle" font-family="monospace" font-size="14">round</text>
+  <rect x="710" y="116" width="130" height="72" rx="10" fill="#fff" stroke="#94a3b8"/>
+  <text x="775" y="157" text-anchor="middle" font-family="monospace" font-size="14">constants</text>
+  <rect x="465" y="218" width="280" height="54" rx="10" fill="#fff" stroke="#94a3b8"/>
+  <text x="605" y="250" text-anchor="middle" font-family="monospace" font-size="14">H0-H7 state + digest</text>
+  <path d="M230 120 H330" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M520 152 H555" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M675 152 H710" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M615 188 V218" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#334155"/>
+    </marker>
+  </defs>
+</svg>

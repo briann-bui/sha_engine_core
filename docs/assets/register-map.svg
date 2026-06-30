@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="220" viewBox="0 0 920 220" role="img" aria-label="SHA-256 port map">
+  <rect width="920" height="220" rx="18" fill="#f8fafc"/>
+  <text x="40" y="44" font-family="monospace" font-size="20" font-weight="700">Direct Port Map</text>
+  <rect x="40" y="72" width="240" height="104" rx="12" fill="#dbeafe" stroke="#2563eb"/>
+  <text x="160" y="112" text-anchor="middle" font-family="monospace" font-size="14">control</text>
+  <text x="160" y="138" text-anchor="middle" font-family="monospace" font-size="12">start/init/next/final/mode</text>
+  <rect x="340" y="72" width="240" height="104" rx="12" fill="#ecfdf5" stroke="#16a34a"/>
+  <text x="460" y="112" text-anchor="middle" font-family="monospace" font-size="14">data</text>
+  <text x="460" y="138" text-anchor="middle" font-family="monospace" font-size="12">512-bit pre-padded block</text>
+  <rect x="640" y="72" width="240" height="104" rx="12" fill="#fef3c7" stroke="#f59e0b"/>
+  <text x="760" y="112" text-anchor="middle" font-family="monospace" font-size="14">status</text>
+  <text x="760" y="138" text-anchor="middle" font-family="monospace" font-size="12">ready/busy/done/error/digest</text>
+</svg>
