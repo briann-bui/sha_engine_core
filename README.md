@@ -1,8 +1,12 @@
 # SHA-256 Core
 
-SystemVerilog SHA-256 compression/hash core.
+A synthesizable SHA-256 core written in SystemVerilog, meant to be used as a clean RTL IP block in larger hardware designs. Built together with a friend.
 
-This core takes a pre-padded 512-bit block and returns a 256-bit digest. This version focuses on the RTL core and a small UVM smoke test setup. It does not include a bus wrapper or padding engine.
+This version only covers the core itself — no bus wrapper, padding engine, register map, or testbench yet.
+
+Collaborator: tedduy@gmail.com
+
+
 
 ## Status
 
