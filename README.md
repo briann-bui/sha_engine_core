@@ -1,6 +1,6 @@
 # SHA-256 Engine IP Core
 
-A synthesizable SHA-256 core written in SystemVerilog, meant to be used as a clean RTL IP block in larger hardware designs.
+A synthesizable SHA-256 core written in SystemVerilog, meant to be used as a clean RTL IP block in larger hardware designs, I write code with friends.
 
 This version only covers the core itself — no bus wrapper, padding engine, register map, or testbench yet.
 
@@ -61,28 +61,12 @@ Top module is `sha256_core`. Main signals:
 **Multiple blocks:** assert `i_sha_init` on the first block, `i_sha_next` on the following ones, and `i_sha_final` on the last. The core keeps internal hash state between blocks.
 
 ## Data Format
-
-Input block is big-endian:
-
-```text
-W[0]  = i_sha_block[511:480]
-...
-W[15] = i_sha_block[31:0]
-```
-
 Digest output is also big-endian: `{H0, H1, ..., H7}`.
 
 ## Current Limitations
 
 Not yet included: padding engine, bus wrapper (APB/AHB/AXI), CSR register map, DMA/streaming interface, testbench/test vectors, full SHA-224 support (init values are placeholders only, no output truncation yet).
 
-## Compile Order
-
-```text
-sha_pkg.sv → sha_func.sv → sha_constants.sv → sha_round.sv →
-sha_msg_schedule.sv → sha_compress.sv → sha_ctrl.sv →
-sha_datapath.sv → sha256_core.sv
-```
 
 ## Author
 
